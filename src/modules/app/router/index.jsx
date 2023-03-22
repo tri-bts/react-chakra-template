@@ -3,6 +3,7 @@ import DefaultLayout from '../layout/DefaultLayout';
 import LoginScreen from '../../auth/pages/LoginScreen';
 import DashboardScreen from '../../dashboard/pages/DashboardScreen';
 import FormAdvanceScreen from '@/modules/form-advance/pages/FormAdvanceScreen';
+import FormUniqueScreen from '@/modules/form-unique/pages/FormUniqueScreen';
 
 // Lazy load pages
 
@@ -12,7 +13,7 @@ const routes = [
    */
   {
     path: '/auth/login',
-    element: <LoginScreen />
+    element: <LoginScreen />,
   },
 
   /**
@@ -23,9 +24,10 @@ const routes = [
     element: <ProtectedRoute component={<DefaultLayout />} />,
     children: [
       { index: true, element: <DashboardScreen /> },
-      { path: '/form-advance', element: <FormAdvanceScreen /> }
-    ]
-  }
+      { path: '/form-advance', element: <FormAdvanceScreen /> },
+      { path: '/form-unique', element: <FormUniqueScreen /> },
+    ],
+  },
 ];
 
 export default routes;
