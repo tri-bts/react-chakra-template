@@ -5,7 +5,7 @@ export const AUTH_ROLE_PERMISSIONS = {
   tree: ['VIEW_TREE', 'EDIT_TREE'],
   formUnique: ['VIEW_FORM_UNIQUE'],
   formula: ['VIEW_FORMULA', 'CREATE_FORMULA', 'CALCULATE_FORMULA'],
-  formAdvance: ['VIEW_FORM_CANGGIH'],
+  formAdvance: ['VIEW_FORM_ADVANCE'],
   table: ['VIEW_TABLE', 'CREATE_CONFIG_TABLE', 'UPDATE_CONFIG_TABLE'],
   graphic: ['VIEW_GRAPHIC'],
 };
@@ -85,5 +85,11 @@ export const MENUS = [
     icon: FiMenu,
     path: '/table',
     access: 'table',
+  },
+  {
+    name: 'Informasi',
+    icon: FiMenu,
+    path: '/information',
+    access: 'graphic',
   },
 ];
