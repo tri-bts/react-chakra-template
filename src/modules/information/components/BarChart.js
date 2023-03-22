@@ -6,15 +6,18 @@ ChartJS.register(CategoryScale, BarElement, Title, Tooltip, Legend);
 import { Bar } from 'react-chartjs-2';
 
 const options = {
-  title: {
-    display: true,
-    text: 'Average Rainfall per month',
-    fontSize: 20,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Data Jumlah Penduduk di Benua Asia',
+      fontSize: 28,
+    },
+    legend: {
+      display: true,
+      position: 'right',
+    },
   },
-  legend: {
-    display: true,
-    position: 'right',
-  },
+  responsive: true,
 };
 
 function getRandomColor() {

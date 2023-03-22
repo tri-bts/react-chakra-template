@@ -15,15 +15,18 @@ import { Line } from 'react-chartjs-2';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const options = {
-  title: {
-    display: true,
-    text: 'Average Rainfall per month',
-    fontSize: 20,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Pertumbuhan Penduduk Indonesia',
+      fontSize: 20,
+    },
+    legend: {
+      display: false,
+      position: 'right',
+    },
   },
-  legend: {
-    display: true,
-    position: 'right',
-  },
+  responsive: true,
 };
 
 function LineChart({ data }) {
@@ -39,7 +42,7 @@ function LineChart({ data }) {
       labels: ['1970', '1980', '1990', '2000', '2010', '2015', '2020', '2022'],
       datasets: [
         {
-          label: 'Pertumbuhan Penduduk Indonesia',
+          label: 'Indonesia',
           borderColor: 'rgba(0,0,0,1)',
           backgroundColor: 'rgba(75,192,192,1)',
           borderWidth: 2,
