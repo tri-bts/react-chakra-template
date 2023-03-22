@@ -4,16 +4,13 @@ import { persistReducer, persistStore } from 'redux-persist';
 
 // Reducers
 import authReducer from '../../../modules/auth/slice/auth.slice';
+import formAdvanceReducer from '@/modules/form-advance/slice/formAdvance.slice';
 // Other Reducers ....
 import informationReducer from '../../../modules/information/slice/information.slice';
 
-const authPersistConfig = {
-  key: 'auth',
-  storage,
-};
-
 const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, authReducer),
+  auth: persistReducer({ key: 'auth', storage }, authReducer),
+  formAdvance: persistReducer({ key: 'form-advance', storage }, formAdvanceReducer),
   information: informationReducer,
 });
 
