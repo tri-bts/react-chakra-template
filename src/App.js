@@ -1,24 +1,13 @@
 import React from 'react';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import { ChakraProvider, theme } from '@chakra-ui/react';
 import LoginScreen from './modules/auth/pages/LoginScreen';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <BrowserRouter> 
+      <BrowserRouter>
         <LoginScreen />
       </BrowserRouter>
     </ChakraProvider>

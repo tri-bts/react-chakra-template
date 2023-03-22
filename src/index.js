@@ -1,19 +1,17 @@
-import { ColorModeScript } from '@chakra-ui/react';
 import React, { StrictMode } from 'react';
 import { render } from 'react-dom';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import { store, persistor } from './modules/app/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import App from '@/App';
 
 const root = document.getElementById('root');
 render(
   <StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <ColorModeScript />
         <App />
       </PersistGate>
     </Provider>
