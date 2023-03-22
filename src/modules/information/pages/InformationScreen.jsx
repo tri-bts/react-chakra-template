@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { information_fetchStatistic } from '../slice/information.slice';
 
@@ -7,15 +7,18 @@ import BarChart from '../components/BarChart';
 import LineChart from '../components/LineChart';
 import PieChart from '../components/PieChart';
 
-import { Box, chakra, SimpleGrid, Stat, useColorModeValue } from '@chakra-ui/react';
+import { Box, chakra, SimpleGrid, Stat, useColorModeValue, Spinner } from '@chakra-ui/react';
 
 function InformationScreen() {
   const [population, setPopulation] = useState('');
+  const isLoading = useSelector(({ information }) => information.information_loading);
 
   const dispatch = useDispatch();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
+    console.log(isLoading);
+
     const data = await dispatch(information_fetchStatistic()).unwrap();
     setPopulation(data);
   }, [dispatch]);
@@ -35,7 +38,17 @@ function InformationScreen() {
               border={'1px solid'}
               borderColor={useColorModeValue('gray.800', 'gray.500')}
               rounded={'lg'}>
-              {population.length > 0 && <BarChart data={population} />}
+              {population.length < 1 && !isLoading && <div>no data</div>}
+              {population.length > 0 && !isLoading && <BarChart data={population} />}
+              {isLoading && (
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="xl"
+                />
+              )}
             </Stat>
           </Box>
           <Box>
@@ -46,7 +59,17 @@ function InformationScreen() {
               border={'1px solid'}
               borderColor={useColorModeValue('gray.800', 'gray.500')}
               rounded={'lg'}>
+              {population.length < 1 && !isLoading && <div>no data</div>}
               {population.length > 0 && <LineChart data={population} />}
+              {isLoading && (
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="xl"
+                />
+              )}
             </Stat>
           </Box>
           <Box>
@@ -57,7 +80,17 @@ function InformationScreen() {
               border={'1px solid'}
               borderColor={useColorModeValue('gray.800', 'gray.500')}
               rounded={'lg'}>
+              {population.length < 1 && !isLoading && <div>no data</div>}
               {population.length > 0 && <PieChart data={population} />}
+              {isLoading && (
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="xl"
+                />
+              )}
             </Stat>
           </Box>
         </SimpleGrid>

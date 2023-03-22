@@ -18,19 +18,18 @@ export const information_fetchStatistic = createAsyncThunk(
 const informationSlice = createSlice({
   name: 'information',
   initialState: {
-    loading: false,
-    statisticData: {},
+    information_loading: false,
   },
   reducers: {},
   extraReducers: {
     [information_fetchStatistic.pending]: state => {
-      state.loading = true;
+      state.information_loading = true;
     },
     [information_fetchStatistic.fulfilled]: state => {
-      state.loading = false;
+      state.information_loading = false;
     },
     [information_fetchStatistic.rejected]: state => {
-      state.loading = false;
+      state.information_loading = false;
     },
   },
 });
