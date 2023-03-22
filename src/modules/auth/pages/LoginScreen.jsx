@@ -12,7 +12,7 @@ import {
   Link,
   Stack,
   useToast,
-  VStack,
+  VStack
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { auth_doLogin } from '../slice/auth.slice';
@@ -25,7 +25,7 @@ export default function LoginScreen() {
   const navigate = useNavigate();
 
   const onSubmit = useCallback(
-    async values => {
+    async (values) => {
       try {
         await dispatch(auth_doLogin(values)).unwrap();
 
@@ -33,19 +33,18 @@ export default function LoginScreen() {
           title: 'Information',
           description: 'Selamat dating di KiSeratus!',
           status: 'success',
-          position: "top-right"
+          position: 'top-right'
         });
 
         setTimeout(() => {
-            navigate('/');
+          navigate('/');
         }, 1000);
-
       } catch (err) {
         toast({
           title: 'Information',
           description: err.message,
           status: 'error',
-          position: "top-right"
+          position: 'top-right'
         });
       }
     },
@@ -58,17 +57,8 @@ export default function LoginScreen() {
         <Stack spacing={4} w={'full'} maxW={'md'}>
           <Heading fontSize={'2xl'}>Sign in to your account</Heading>
 
-          <Formik
-            initialValues={{ username: '', password: '' }}
-            onSubmit={onSubmit}
-          >
-            {({
-              values,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-            }) => (
+          <Formik initialValues={{ username: '', password: '' }} onSubmit={onSubmit}>
+            {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
               <form onSubmit={handleSubmit}>
                 <VStack spacing={4} align="flex-start">
                   <FormControl id="username">
@@ -93,8 +83,7 @@ export default function LoginScreen() {
                     <Stack
                       direction={{ base: 'column', sm: 'row' }}
                       align={'start'}
-                      justify={'space-between'}
-                    >
+                      justify={'space-between'}>
                       <Checkbox>Remember me</Checkbox>
                       <Link color={'blue.500'}>Forgot password?</Link>
                     </Stack>
@@ -102,8 +91,7 @@ export default function LoginScreen() {
                       type="submit"
                       colorScheme={'blue'}
                       variant={'solid'}
-                      disabled={isSubmitting}
-                    >
+                      disabled={isSubmitting}>
                       Sign in
                     </Button>
                   </Stack>

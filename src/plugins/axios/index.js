@@ -1,18 +1,17 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const BASE_URL = process.env.REACT_APP_API_URL;
 
 const axiosClient = axios.create({
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
   baseURL: BASE_URL,
   timeout: 10000,
 });
 
 axiosClient.interceptors.request.use(
-  (set) => {
-
+  set => {
     // TODO check auth token
     // if (isAuthenticated) {
     //   set.headers = {
@@ -22,19 +21,19 @@ axiosClient.interceptors.request.use(
 
     return set;
   },
-  (error) => Promise.reject(error),
+  error => Promise.reject(error)
 );
 
 axiosClient.interceptors.response.use(
-  (response) => {
+  response => {
     return response;
   },
-  async (error) => {
+  async error => {
     if (!error.response) {
-      console.log("Please check your internet connection.");
+      console.log('Please check your internet connection.');
     }
     throw error;
-  },
+  }
 );
 
 export default axiosClient;
