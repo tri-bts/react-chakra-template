@@ -42,7 +42,7 @@ const authSlice = createSlice({
   },
   reducers: {
     auth_clearState(state) {
-      state.isLoggedIn = false;
+      state.auth_isLoggedIn = false;
       state.auth_permissions = [];
       state.auth_fullName = '';
     },

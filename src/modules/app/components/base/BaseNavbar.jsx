@@ -1,3 +1,7 @@
+
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import {
   Avatar,
   Box,
@@ -12,9 +16,20 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
+import { auth_clearState } from '@/modules/auth/slice/auth.slice';
+
+
 import { ColorModeSwitcher } from "@/modules/app/components/ColorModeSwitcher";
 
 const BaseNavbar = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const logout = () => {
+      dispatch(auth_clearState())
+      navigate('/auth/login')
+      
+  }
   return (
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -39,7 +54,7 @@ const BaseNavbar = () => {
                 <MenuList>
                   <MenuItem>Account Settings</MenuItem>
                   <MenuDivider />
-                  <MenuItem>Logout</MenuItem>
+                  <MenuItem onClick={logout}>Logout</MenuItem>
                 </MenuList>
               </Menu>
             </Stack>
