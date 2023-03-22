@@ -5,6 +5,7 @@ import { information_fetchStatistic } from '../slice/information.slice';
 
 import BarChart from '../components/BarChart';
 import LineChart from '../components/LineChart';
+import PieChart from '../components/PieChart';
 
 import { Box, chakra, SimpleGrid, Stat, useColorModeValue } from '@chakra-ui/react';
 
@@ -23,7 +24,7 @@ function InformationScreen() {
     <>
       <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
         <chakra.h1 textAlign={'center'} fontSize={'4xl'} py={10} fontWeight={'bold'}>
-          DATA PENDUDUK BENUA ASIA
+          DATA POPULASI ASIA
         </chakra.h1>
         <SimpleGrid columns={{ base: 1, md: 1 }} spacing={{ base: 5, lg: 8 }}>
           <Box>
@@ -55,7 +56,9 @@ function InformationScreen() {
               shadow={'xl'}
               border={'1px solid'}
               borderColor={useColorModeValue('gray.800', 'gray.500')}
-              rounded={'lg'}></Stat>
+              rounded={'lg'}>
+              {population.length > 0 && <PieChart data={population} />}
+            </Stat>
           </Box>
         </SimpleGrid>
       </Box>
