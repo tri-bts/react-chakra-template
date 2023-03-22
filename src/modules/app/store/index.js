@@ -4,25 +4,20 @@ import { persistReducer, persistStore } from 'redux-persist';
 
 // Reducers
 import authReducer from '../../../modules/auth/slice/auth.slice';
+import formAdvanceReducer from '@/modules/form-advance/slice/formAdvance.slice';
 // Other Reducers ....
 
-const authPersistConfig = {
-  key: 'auth',
-  storage
-};
-
 const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, authReducer)
-
-  // auth: authReducer,
+  auth: persistReducer({ key: 'auth', storage }, authReducer),
+  formAdvance: persistReducer({ key: 'form-advance', storage }, formAdvanceReducer),
 });
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-      serializableCheck: false
-    })
+      serializableCheck: false,
+    }),
 });
 
 export const persistor = persistStore(store);
