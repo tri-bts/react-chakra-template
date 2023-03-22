@@ -14,7 +14,7 @@ import {
   Select,
   Stack,
   Textarea,
-  VStack
+  VStack,
 } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import { useCallback } from 'react';
@@ -28,7 +28,7 @@ const schema = Yup.object().shape({
   address: Yup.string().required().label('Alamat'),
   work: Yup.string().required().label('Pekerjaan'),
   summaryLife: Yup.string().required().label('Ringkasan Kehidupan'),
-  photo: Yup.string().required().label('Photo')
+  photo: Yup.string().required().label('Photo'),
 });
 
 const formInitialState = {
@@ -38,7 +38,7 @@ const formInitialState = {
   address: '',
   work: '',
   summaryLife: '',
-  photo: ''
+  photo: '',
 };
 
 const FormAdvanceScreen = () => {
@@ -60,7 +60,7 @@ const FormAdvanceScreen = () => {
               handleSubmit,
               isSubmitting,
               errors,
-              touched
+              touched,
             }) => (
               <form onSubmit={handleSubmit}>
                 <VStack spacing={4} align="flex-start">
