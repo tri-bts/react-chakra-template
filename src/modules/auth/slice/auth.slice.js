@@ -1,15 +1,31 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axiosClient from '../../../plugins/axios';
+import { AUTH_ROLE_PERMISSIONS, AUTH_USER } from '../constant/auth.constant';
 
-export const authLogin = createAsyncThunk(
+export const auth_doLogin = createAsyncThunk(
   'auth/login',
   async (payload, { rejectWithValue }) => {
     try {
-      const { data } = await axiosClient.post(
-        'http://localhost:4000/login',
-        payload
-      );
-      return data;
+      const { username, password } = payload;
+
+      // Check user is registered
+      if (!Object.keys(AUTH_USER).includes(username)) {
+        throw new Error('Akun tidak terdaftar');
+      }
+
+      // Get current user
+      const currentUser = AUTH_USER[username];
+
+      // Validate user and password
+      if (currentUser.password !== password) {
+        throw new Error('ID / Password Salah');
+      }
+
+      // Check user have roles
+      if (!currentUser.roles.length) {
+        throw new Error('Akun Belum memiliki peran');
+      }
+
+      return currentUser;
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -19,31 +35,37 @@ export const authLogin = createAsyncThunk(
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    isLoggedIn: !!localStorage.getItem('token'),
-    loading: false,
-    token: null,
+    auth_isLoggedIn: false,
+    auth_loading: false,
+    auth_permissions: [],
+    auth_fullName: '',
   },
   reducers: {
-    authClearState(state) {
+    auth_clearState(state) {
       state.isLoggedIn = false;
-      state.token = null;
+      state.auth_permissions = [];
+      state.auth_fullName = '';
     },
   },
   extraReducers: {
-    [authLogin.pending]: state => {
-      state.loading = true;
+    [auth_doLogin.pending]: state => {
+      state.auth_loading = true;
     },
-    [authLogin.fulfilled]: state => {
-      state.loading = false;
-      state.isLoggedIn = true;
-      state.token = 'CONTOH TOKEN';
+    [auth_doLogin.rejected]: state => {
+      state.auth_loading = false;
     },
-    [authLogin.rejected]: state => {
-      state.loading = false;
+    [auth_doLogin.fulfilled]: (state, { payload }) => {
+      state.auth_loading = false;
+      state.auth_isLoggedIn = true;
+      state.auth_fullName = payload.fullName;
+      state.auth_permissions = payload.roles.reduce((acc, role) => {
+        acc.push(...AUTH_ROLE_PERMISSIONS[role]);
+        return acc;
+      }, []);
     },
   },
 });
 
-export const { authClearState } = authSlice.actions;
+export const { auth_clearState } = authSlice.actions;
 
 export default authSlice.reducer;

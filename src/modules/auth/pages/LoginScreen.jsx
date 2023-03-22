@@ -11,21 +11,39 @@ import {
   Input,
   Link,
   Stack,
+  useToast,
+  VStack,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { authLogin } from '../slice/auth.slice';
+import { auth_doLogin } from '../slice/auth.slice';
 import { Formik } from 'formik';
 
 export default function LoginScreen() {
   const dispatch = useDispatch();
+  const toast = useToast();
 
-  const onSubmit = useCallback(async () => {
-    try {
-      await dispatch(authLogin());
-    } catch (err) {
-      console.log(err);
-    }
-  });
+  const onSubmit = useCallback(
+    async values => {
+      try {
+        await dispatch(auth_doLogin(values)).unwrap();
+
+        toast({
+          title: 'Information',
+          description: 'Selamat dating di KiSeratus!',
+          status: 'success',
+          position: "top-right"
+        });
+      } catch (err) {
+        toast({
+          title: 'Information',
+          description: err.message,
+          status: 'error',
+          position: "top-right"
+        });
+      }
+    },
+    [dispatch, toast]
+  );
 
   return (
     <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
@@ -34,56 +52,55 @@ export default function LoginScreen() {
           <Heading fontSize={'2xl'}>Sign in to your account</Heading>
 
           <Formik
-            initialValues={{ email: '', password: '' }}
+            initialValues={{ username: '', password: '' }}
             onSubmit={onSubmit}
           >
             {({
               values,
-              errors,
-              touched,
               handleChange,
               handleBlur,
               handleSubmit,
               isSubmitting,
-              /* and other goodies */
             }) => (
               <form onSubmit={handleSubmit}>
-                <FormControl id="email">
-                  <FormLabel>Email address</FormLabel>
-                  <Input
-                    type="email"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                  />
-                </FormControl>
-                <FormControl id="password">
-                  <FormLabel>Password</FormLabel>
-                  <Input
-                    type="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
-                  />
-                </FormControl>
-                <Stack spacing={6}>
-                  <Stack
-                    direction={{ base: 'column', sm: 'row' }}
-                    align={'start'}
-                    justify={'space-between'}
-                  >
-                    <Checkbox>Remember me</Checkbox>
-                    <Link color={'blue.500'}>Forgot password?</Link>
+                <VStack spacing={4} align="flex-start">
+                  <FormControl id="username">
+                    <FormLabel>Username</FormLabel>
+                    <Input
+                      type="text"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                    />
+                  </FormControl>
+                  <FormControl id="password">
+                    <FormLabel>Password</FormLabel>
+                    <Input
+                      type="password"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.password}
+                    />
+                  </FormControl>
+                  <Stack spacing={6}>
+                    <Stack
+                      direction={{ base: 'column', sm: 'row' }}
+                      align={'start'}
+                      justify={'space-between'}
+                    >
+                      <Checkbox>Remember me</Checkbox>
+                      <Link color={'blue.500'}>Forgot password?</Link>
+                    </Stack>
+                    <Button
+                      type="submit"
+                      colorScheme={'blue'}
+                      variant={'solid'}
+                      disabled={isSubmitting}
+                    >
+                      Sign in
+                    </Button>
                   </Stack>
-                  <Button
-                    type="submit"
-                    colorScheme={'blue'}
-                    variant={'solid'}
-                    disabled={isSubmitting}
-                  >
-                    Sign in
-                  </Button>
-                </Stack>
+                </VStack>
               </form>
             )}
           </Formik>
