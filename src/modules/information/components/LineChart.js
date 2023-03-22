@@ -14,6 +14,8 @@ import { Line } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
+import { getRandomColor } from '@/helper/functions';
+
 const options = {
   plugins: {
     title: {
@@ -44,7 +46,7 @@ function LineChart({ data }) {
         {
           label: 'Indonesia',
           borderColor: 'rgba(0,0,0,1)',
-          backgroundColor: 'rgba(75,192,192,1)',
+          backgroundColor: getRandomColor(),
           borderWidth: 2,
           data: [
             indonesia[`1970 Population`],

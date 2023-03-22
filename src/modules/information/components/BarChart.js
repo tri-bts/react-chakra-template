@@ -5,6 +5,8 @@ ChartJS.register(CategoryScale, BarElement, Title, Tooltip, Legend);
 
 import { Bar } from 'react-chartjs-2';
 
+import { getRandomColor } from '@/helper/functions';
+
 const options = {
   plugins: {
     title: {
@@ -19,15 +21,6 @@ const options = {
   },
   responsive: true,
 };
-
-function getRandomColor() {
-  const letters = '0123456789ABCDEF'.split('');
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
 
 function BarChart({ data }) {
   const [chartData, setChartData] = useState({
