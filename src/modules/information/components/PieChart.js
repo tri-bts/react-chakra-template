@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
@@ -35,7 +34,7 @@ function PieChart({ data }) {
         {
           label: '2015',
           borderColor: 'rgba(0,0,0,1)',
-          backgroundColor: data.map(pop => getRandomColor()),
+          backgroundColor: data.map(() => getRandomColor()),
           borderWidth: 2,
           data: data.map(pop => pop[`World Population Percentage`]),
         },
