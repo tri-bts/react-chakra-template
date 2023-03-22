@@ -1,5 +1,5 @@
 /* eslint react/prop-types: 0 */
-
+import { FiMenu } from 'react-icons/fi';
 import {
   IconButton,
   Box,
@@ -7,23 +7,17 @@ import {
   Flex,
   Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   Text,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
-import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu } from 'react-icons/fi';
-
-const LinkItems = [
-  { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
-  { name: 'Settings', icon: FiSettings }
-];
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const SidebarContent = ({ onClose, ...rest }) => {
+  const menus = useSelector(({ auth }) => auth.auth_menus);
+
   return (
     <Box
       bg={useColorModeValue('white', 'gray.900')}
@@ -39,8 +33,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+      {menus.map(link => (
+        <NavItem key={link.name} icon={link.icon} to={link.path}>
           {link.name}
         </NavItem>
       ))}
@@ -48,9 +42,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, children, to, ...rest }) => {
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link to={to} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"
@@ -60,7 +54,7 @@ const NavItem = ({ icon, children, ...rest }) => {
         cursor="pointer"
         _hover={{
           bg: 'cyan.400',
-          color: 'white'
+          color: 'white',
         }}
         {...rest}>
         {icon && (
@@ -68,7 +62,7 @@ const NavItem = ({ icon, children, ...rest }) => {
             mr="4"
             fontSize="16"
             _groupHover={{
-              color: 'white'
+              color: 'white',
             }}
             as={icon}
           />
