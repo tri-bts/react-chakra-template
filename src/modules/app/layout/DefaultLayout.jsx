@@ -1,14 +1,18 @@
-import React from 'react';
+import BaseNavbar from '../components/base/BaseNavbar';
+import BaseSidebar from '../components/base/BaseSidebar';
 import { Outlet } from 'react-router-dom';
 
-const DefaultLayout = () => {
+const AppLayout = () => {
   return (
     <>
-      <div>HEADER</div>
-      <div>SIDEBAR</div>
-      <Outlet />
+      <main>
+        <BaseSidebar>
+          <BaseNavbar />
+          <Outlet />
+        </BaseSidebar>
+      </main>
     </>
   );
 };
 
-export default DefaultLayout;
+export default AppLayout;
