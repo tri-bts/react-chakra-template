@@ -16,7 +16,7 @@ import {
   AiOutlineCaretRight,
 } from 'react-icons/ai';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { family_updateTree } from '../slice/family.slice';
@@ -39,13 +39,14 @@ const FamilyScreen = props => {
   const toast = useToast();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const family_treeData = useSelector(state => state.family.family_treeData);
   const isCanEdit = useCheckPermission(['EDIT_TREE']);
 
   useEffect(() => {
     setTreeData(family_treeData);
-  }, [family_treeData]);
+  }, [family_treeData, location]);
 
   const onAddParent = useCallback(
     position => {
@@ -113,7 +114,6 @@ const FamilyScreen = props => {
   }, [dispatch, treeData]);
 
   const onCancelEdit = useCallback(() => {
-    setTreeData(family_treeData);
     navigate('/family-tree');
   }, []);
 

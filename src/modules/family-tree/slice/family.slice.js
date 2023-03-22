@@ -10,7 +10,7 @@ const authSlice = createSlice({
       state.family_treeData = [{}];
     },
     family_updateTree(state, action) {
-      state.family_treeData = action.payload?.length ? action.payload : [{}];
+      state.family_treeData = action.payload?.length ? [...action.payload] : [{}];
     },
   },
 });
