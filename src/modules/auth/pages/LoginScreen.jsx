@@ -17,10 +17,12 @@ import {
 import { useDispatch } from 'react-redux';
 import { auth_doLogin } from '../slice/auth.slice';
 import { Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginScreen() {
   const dispatch = useDispatch();
   const toast = useToast();
+  const navigate = useNavigate();
 
   const onSubmit = useCallback(
     async values => {
@@ -33,6 +35,11 @@ export default function LoginScreen() {
           status: 'success',
           position: "top-right"
         });
+
+        setTimeout(() => {
+            navigate('/');
+        }, 1000);
+
       } catch (err) {
         toast({
           title: 'Information',
