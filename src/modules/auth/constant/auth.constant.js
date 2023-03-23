@@ -1,4 +1,12 @@
-import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu } from 'react-icons/fi';
+import {
+  FiHome,
+  FiTrendingUp,
+  FiCompass,
+  FiStar,
+  FiSettings,
+  FiMenu,
+  FiBarChart,
+} from 'react-icons/fi';
 
 export const AUTH_ROLE_PERMISSIONS = {
   event: ['VIEW_EVENT', 'EDIT_EVENT'],
@@ -88,7 +96,7 @@ export const MENUS = [
   },
   {
     name: 'Informasi',
-    icon: FiMenu,
+    icon: FiBarChart,
     path: '/information',
     access: 'graphic',
   },

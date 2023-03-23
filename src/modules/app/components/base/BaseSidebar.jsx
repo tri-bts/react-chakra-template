@@ -15,6 +15,8 @@ import {
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+const logo = 'KiSeratus';
+
 const SidebarContent = ({ onClose, ...rest }) => {
   const menus = useSelector(({ auth }) => auth.auth_menus);
 
@@ -29,7 +31,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          KiSeratus
+          {logo}
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
@@ -88,7 +90,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       <IconButton variant="outline" onClick={onOpen} aria-label="open menu" icon={<FiMenu />} />
 
       <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        KiSeratus
+        {logo}
       </Text>
     </Flex>
   );
