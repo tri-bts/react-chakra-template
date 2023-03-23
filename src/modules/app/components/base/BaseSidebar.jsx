@@ -14,11 +14,19 @@ import {
 } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { MENUS } from '@/modules/auth/constant/auth.constant';
+import { useMemo } from 'react';
 
 const logo = 'KiSeratus';
 
 const SidebarContent = ({ onClose, ...rest }) => {
-  const menus = useSelector(({ auth }) => auth.auth_menus);
+  // Get current roles
+  const roles = useSelector(({ auth }) => auth.auth_roles);
+
+  // Get current menus by roles
+  const menus = useMemo(() => {
+    return MENUS.filter(menu => roles.includes(menu.access));
+  }, [roles]);
 
   return (
     <Box
