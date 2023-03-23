@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
-import { Grid, GridItem, Button, Box, Text } from '@chakra-ui/react';
+import { Grid, GridItem, Button } from '@chakra-ui/react';
 
 const BaseCalculator = ({ value, onChange }) => {
   useEffect(() => {
     window.addEventListener('keypress', physicButtonPress);
+
+    return () => window.removeEventListener('keypress', physicButtonPress);
     // eslint-disable-next-line
   }, []);
 
@@ -74,44 +76,29 @@ const BaseCalculator = ({ value, onChange }) => {
       return onChange('');
     }
     if (char === '.' && /\./g.test(value)) return;
-    if (char === '=') {
-      return onChange(`${calculateValue(value)}`);
-    }
+    if (char === '=') return;
 
-    return onChange(prevState => `${prevState}${char}`);
+    return onChange(`${value}${char}`);
   };
 
-  const calculateValue = data => {
-    let result = data;
-    result = result.replace(/\[option1]/g, '100');
-    return eval(result);
-  };
   return (
-    <Box w="100%">
-      <Box h={12} py={4} display="block" style={{ overflowY: 'hidden', overflowX: 'auto' }}>
-        <Text fontSize="xl" align="end">
-          {value}
-        </Text>
-      </Box>
-      <Grid templateColumns="repeat(4, auto)" gap="1">
-        {buttons.map((button, index) => {
-          return (
-            <GridItem bg={button.bgColor} colSpan={button.colspan ?? 1} key={index}>
-              <Button
-                colorScheme="teal"
-                variant="ghost"
-                style={{ width: '100%' }}
-                onClick={() => {
-                  handlePress(button.label);
-                }}>
-                {button.label}
-              </Button>
-            </GridItem>
-          );
-        })}
-      </Grid>
-    </Box>
-    // <ReactCalculator />
+    <Grid templateColumns="repeat(4, auto)" gap="1">
+      {buttons.map((button, index) => {
+        return (
+          <GridItem
+            bg={button.bgColor}
+            colSpan={button.colspan ?? 1}
+            key={index}
+            onClick={() => {
+              handlePress(button.label);
+            }}>
+            <Button variant="ghost" color="#ffffff" w="100%" _hover={{ bg: 'transparent' }}>
+              {button.label}
+            </Button>
+          </GridItem>
+        );
+      })}
+    </Grid>
   );
 };
 

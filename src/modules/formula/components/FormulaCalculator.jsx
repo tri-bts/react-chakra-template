@@ -1,47 +1,93 @@
-import { Box, Flex, Select, Spacer, Button } from '@chakra-ui/react';
+import { Box, Flex, Select, Spacer, Button, Text, Input } from '@chakra-ui/react';
 import BaseCalculator from '@/modules/app/components/base/BaseCalculator';
 import BaseDialog from '@/modules/app/components/base/BaseDialog';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-const FormulaCalculator = ({ isOpen, onClose, onSubmit, value }) => {
+const FormulaCalculator = ({ isOpen, onClose, onSubmit, formula = '', label = '' }) => {
+  const [result, setResult] = useState({
+    label: label,
+    formula: formula,
+  });
   const [item, setItem] = useState('');
-  const [calculator, setCalculator] = useState('');
+  const formUniq = useSelector(({ formUnique }) => formUnique.formUnique_data);
 
-  const handleSubmit = () => {
-    setCalculator(prevState => `${prevState}[${item}]`);
+  /**
+   * @description method to add data from form unique to formula
+   */
+  const inputToFormula = () => {
+    setResult(prevResult => ({ ...prevResult, formula: `${prevResult.formula}${item}` }));
     setItem('');
   };
 
-  const handleClose = () => {
-    console.log(value);
-    setCalculator(value);
+  /**
+   * @description method to close dialog calculator and sync value
+   */
+  const closeDialog = () => {
+    setResult(prevResult => ({ ...prevResult, formula: formula }));
+    onClose();
+  };
+
+  /**
+   * @description method to submit formula
+   */
+  const submitResultFormula = () => {
+    onSubmit(result);
     onClose();
   };
 
   return (
-    <BaseDialog isOpen={isOpen} onClose={() => handleClose()}>
+    <BaseDialog isOpen={isOpen} onClose={() => closeDialog()}>
       <Box py={10}>
-        <Flex>
-          <Box w="80%">
-            <Select
-              placeholder="Select option"
-              value={item}
-              onChange={event => setItem(event.target.value)}>
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select>
-          </Box>
-          <Spacer />
-          <Button onClick={handleSubmit}>Input</Button>
-        </Flex>
-        <BaseCalculator value={calculator} onChange={value => setCalculator(value)} />
+        <Box mb={4}>
+          <Text>Label</Text>
+          <Input
+            placeholder="Input label"
+            value={result.label}
+            onChange={event =>
+              setResult(prevResult => ({ ...prevResult, label: event.target.value }))
+            }
+          />
+        </Box>
+        <Box>
+          <Text>Data</Text>
+          <Flex>
+            <Box w="80%">
+              <Select
+                placeholder="Select data"
+                value={item}
+                onChange={event => setItem(event.target.value)}>
+                {formUniq.map((form, index) => {
+                  return (
+                    <option value={form?.label} key={index}>
+                      {form?.label}
+                    </option>
+                  );
+                })}
+              </Select>
+            </Box>
+            <Spacer />
+            <Button isDisabled={!item} colorScheme="green" onClick={inputToFormula}>
+              Input
+            </Button>
+          </Flex>
+        </Box>
+
+        <Box mt={6}>
+          <Input placeholder="Input label" mb={1} value={result.formula} readOnly />
+          <BaseCalculator
+            value={result.formula}
+            onChange={value => setResult(prevResult => ({ ...prevResult, formula: `${value}` }))}
+          />
+        </Box>
       </Box>
       <Flex justify="end" gap={2}>
-        <Button variant="outline" onClick={() => handleClose()}>
+        <Button variant="outline" colorScheme="blue" onClick={() => closeDialog()}>
           Cancel
         </Button>
-        <Button onClick={() => onSubmit(calculator)}>Save</Button>
+        <Button colorScheme="blue" onClick={submitResultFormula}>
+          Save
+        </Button>
       </Flex>
     </BaseDialog>
   );

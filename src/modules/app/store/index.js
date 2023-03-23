@@ -4,17 +4,19 @@ import { persistReducer, persistStore } from 'redux-persist';
 
 // Reducers
 import authReducer from '../../../modules/auth/slice/auth.slice';
-// Other Reducers ....
-
-const authPersistConfig = {
-  key: 'auth',
-  storage,
-};
+import formAdvanceReducer from '@/modules/form-advance/slice/formAdvance.slice';
+import formUniqueReducer from '@/modules/form-unique/slice/formUnique.slice';
+import informationReducer from '@/modules/information/slice/information.slice';
+import eventReducer from '@/modules/event/slice/event.slice';
+import formulaReducer from '@/modules/formula/redux/formula.slice';
 
 const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, authReducer),
-
-  // auth: authReducer,
+  auth: persistReducer({ key: 'auth', storage }, authReducer),
+  formAdvance: persistReducer({ key: 'form-advance', storage }, formAdvanceReducer),
+  formUnique: persistReducer({ key: 'form-unique', storage }, formUniqueReducer),
+  event: persistReducer({ key: 'event', storage }, eventReducer),
+  information: informationReducer,
+  formula: persistReducer({ key: 'formula', storage }, formulaReducer),
 });
 
 export const store = configureStore({

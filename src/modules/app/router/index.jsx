@@ -1,9 +1,14 @@
-import ProtectedRoute from '../hoc/ProtectedRoute';
+// import ProtectedRoute from '../hoc/ProtectedRoute';
 import DefaultLayout from '../layout/DefaultLayout';
 import LoginScreen from '../../auth/pages/LoginScreen';
 import DashboardScreen from '../../dashboard/pages/DashboardScreen';
 import FormAdvanceScreen from '@/modules/form-advance/pages/FormAdvanceScreen';
-import formulaRoutes from '@/modules/formula/router/formula.route';
+import FormUniqueScreen from '@/modules/form-unique/pages/FormUniqueScreen';
+import InformationScreen from '@/modules/information/pages/InformationScreen';
+import NotFoundScreen from '@/modules/not-found/pages/NotFoundScreen';
+import EventScreen from '@/modules/event/pages/EventScreen';
+import TableScreen from '@/modules/table/pages/TableScreen';
+import FormulaScreen from '@/modules/formula/pages/FormulaScreen';
 
 // Lazy load pages
 
@@ -21,18 +26,24 @@ const routes = [
    */
   {
     path: '/',
-    element: (
-      <ProtectedRoute>
-        <DefaultLayout />
-      </ProtectedRoute>
-    ),
+    // element: <ProtectedRoute component={<DefaultLayout />} />,
+    element: <DefaultLayout />,
     children: [
       { index: true, element: <DashboardScreen /> },
-      {
-        path: '/formula',
-        children: formulaRoutes,
-      },
       { path: '/form-advance', element: <FormAdvanceScreen /> },
+      { path: '/form-unique', element: <FormUniqueScreen /> },
+      { path: '/information', element: <InformationScreen /> },
+      { path: '/event', element: <EventScreen /> },
+      { path: '/table', element: <TableScreen /> },
+      { path: '/formula', element: <FormulaScreen /> },
+
+      /**
+       * 404 Page not found
+       */
+      {
+        path: '*',
+        element: <NotFoundScreen />,
+      },
     ],
   },
 ];

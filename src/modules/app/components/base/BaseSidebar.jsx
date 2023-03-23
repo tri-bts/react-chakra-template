@@ -1,5 +1,5 @@
 /* eslint react/prop-types: 0 */
-
+import { FiMenu } from 'react-icons/fi';
 import {
   IconButton,
   Box,
@@ -7,23 +7,27 @@ import {
   Flex,
   Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { MENUS } from '@/modules/auth/constant/auth.constant';
+import { useMemo } from 'react';
 
-const LinkItems = [
-  { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
-  { name: 'Settings', icon: FiSettings },
-];
+const logo = 'KiSeratus';
 
 const SidebarContent = ({ onClose, ...rest }) => {
+  // Get current roles
+  const roles = useSelector(({ auth }) => auth.auth_roles);
+
+  // Get current menus by roles
+  const menus = useMemo(() => {
+    return MENUS.filter(menu => roles.includes(menu.access));
+  }, [roles]);
+
   return (
     <Box
       bg={useColorModeValue('white', 'gray.900')}
@@ -34,13 +38,15 @@ const SidebarContent = ({ onClose, ...rest }) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
+        <Link as={Link} to="/">
+          <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+            {logo}
+          </Text>
+        </Link>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      {LinkItems.map(link => (
-        <NavItem key={link.name} icon={link.icon}>
+      {menus.map(link => (
+        <NavItem key={link.name} icon={link.icon} to={link.path}>
           {link.name}
         </NavItem>
       ))}
@@ -48,9 +54,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, children, to, ...rest }) => {
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link to={to} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"
@@ -92,10 +98,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
       justifyContent="flex-start"
       {...rest}>
       <IconButton variant="outline" onClick={onOpen} aria-label="open menu" icon={<FiMenu />} />
-
-      <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        Logo
-      </Text>
+      <Link as={Link} to="/">
+        <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
+          {logo}
+        </Text>
+      </Link>
     </Flex>
   );
 };

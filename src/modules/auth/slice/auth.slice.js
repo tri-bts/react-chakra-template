@@ -1,29 +1,27 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AUTH_ROLE_PERMISSIONS, AUTH_USER } from '../constant/auth.constant';
+import { AUTH_ROLE_PERMISSIONS, AUTH_USERS } from '../constant/auth.constant';
 
 export const auth_doLogin = createAsyncThunk('auth/login', async (payload, { rejectWithValue }) => {
   try {
     const { username, password } = payload;
 
-    // Check user is registered
-    if (!Object.keys(AUTH_USER).includes(username)) {
+    // Validate user
+    const user = AUTH_USERS.find(u => u.username === username);
+    if (!user) {
       throw new Error('Akun tidak terdaftar');
     }
 
-    // Get current user
-    const currentUser = AUTH_USER[username];
-
-    // Validate user and password
-    if (currentUser.password !== password) {
+    // Validate password
+    if (user.password !== password) {
       throw new Error('ID / Password Salah');
     }
 
     // Check user have roles
-    if (!currentUser.roles.length) {
+    if (!user.roles.length) {
       throw new Error('Akun Belum memiliki peran');
     }
 
-    return currentUser;
+    return user;
   } catch (err) {
     return rejectWithValue(err);
   }
@@ -36,12 +34,16 @@ const authSlice = createSlice({
     auth_loading: false,
     auth_permissions: [],
     auth_fullName: '',
+    auth_roles: [],
+    auth_token: null,
   },
   reducers: {
     auth_clearState(state) {
       state.auth_isLoggedIn = false;
       state.auth_permissions = [];
       state.auth_fullName = '';
+      state.auth_menus = [];
+      state.auth_token = null;
     },
   },
   extraReducers: {
@@ -59,6 +61,8 @@ const authSlice = createSlice({
         acc.push(...AUTH_ROLE_PERMISSIONS[role]);
         return acc;
       }, []);
+      state.auth_roles = payload.roles;
+      state.auth_token = '@tokenauthberarer';
     },
   },
 });

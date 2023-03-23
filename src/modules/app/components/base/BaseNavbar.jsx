@@ -8,7 +8,6 @@ import {
   Flex,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Stack,
@@ -31,7 +30,7 @@ const BaseNavbar = () => {
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box>Q100+</Box>
+          <Box></Box>
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
               <ColorModeSwitcher justifySelf="flex-end" />
@@ -50,8 +49,6 @@ const BaseNavbar = () => {
                   />
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Account Settings</MenuItem>
-                  <MenuDivider />
                   <MenuItem onClick={logout}>Logout</MenuItem>
                 </MenuList>
               </Menu>
