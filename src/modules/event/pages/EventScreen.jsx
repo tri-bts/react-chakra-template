@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import FullCalendar from '@fullcalendar/react'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction';
 import { useDispatch } from 'react-redux';
+
+import { Container, useDisclosure } from '@chakra-ui/react';
 
 import { event_fetch } from '../slice/event.slice';
 
-function handleDateClick(arg) {
-  console.log(arg);
-}
+import EventInput from '../components/EventInput';
 
 // a custom render function
 function renderEventContent(eventInfo) {
@@ -20,8 +22,13 @@ function renderEventContent(eventInfo) {
 }
 
 function EventScreen() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const [events, setEvents] = useState([]);
+
+  function handleDateClick() {
+    onOpen();
+  }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
@@ -30,15 +37,22 @@ function EventScreen() {
   }, [dispatch]);
 
   return (
-    <div>
+    <Container maxW={'5xl'} py={12}>
       <FullCalendar
-        plugins={[dayGridPlugin]}
+        plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+        headerToolbar={{
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay',
+        }}
         initialView="dayGridMonth"
         dateClick={handleDateClick}
         events={events}
         eventContent={renderEventContent}
       />
-    </div>
+
+      {onOpen && <EventInput isOpen={isOpen} onClose={onClose} />}
+    </Container>
   );
 }
 
