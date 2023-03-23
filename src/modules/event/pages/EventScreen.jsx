@@ -40,13 +40,14 @@ function EventScreen() {
   }
 
   function handleEventClick(clickInfo) {
+    console.log(clickInfo.event);
     setEvent(clickInfo.event);
     onOpenEventDetail();
   }
   function removeEvent() {
-    onCloseEventDetail();
     if (confirm(`Are you sure you want to delete the event '${event.title}'`)) {
       event.remove();
+      onCloseEventDetail();
     }
   }
 
