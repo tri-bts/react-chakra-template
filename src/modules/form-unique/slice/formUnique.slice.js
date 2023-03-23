@@ -1,59 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-export const formUnique_doSave = createAsyncThunk(
-  'formUnique/save',
-  async (payload, { rejectWithValue }) => {
-    try {
-      return payload;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
-
-export const formUnique_doDelete = createAsyncThunk(
-  'formUnique/delete',
-  async (payload, { rejectWithValue }) => {
-    try {
-      return payload;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
-
-export const formUnique_doEdit = createAsyncThunk(
-  'formUnique/edit',
-  async (payload, { rejectWithValue }) => {
-    try {
-      return payload;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
-
-export const formUnique_edit = createAsyncThunk(
-  'formUnique/setEdit',
-  async (payload, { rejectWithValue }) => {
-    try {
-      return payload;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
-
-export const formUnique_reset = createAsyncThunk(
-  'formUnique/reset',
-  async (payload, { rejectWithValue }) => {
-    try {
-      return payload;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
+import { createSlice } from '@reduxjs/toolkit';
 
 const formUniqueSlice = createSlice({
   name: 'formUnique',
@@ -75,13 +20,11 @@ const formUniqueSlice = createSlice({
         ...payload,
       };
     },
-  },
-  extraReducers: {
-    [formUnique_doSave.fulfilled]: (state, { payload }) => {
+    formUnique_doSave(state, { payload }) {
       const value = { ...payload, id: new Date().valueOf() };
       state.formUnique_data = [...state.formUnique_data, value];
     },
-    [formUnique_doDelete.fulfilled]: (state, { payload }) => {
+    formUnique_doDelete(state, { payload }) {
       state.formUnique_data = state.formUnique_data.filter(function (item) {
         return item.id !== payload;
       });
@@ -96,7 +39,7 @@ const formUniqueSlice = createSlice({
         };
       }
     },
-    [formUnique_doEdit.fulfilled]: (state, { payload }) => {
+    formUnique_doEdit(state, { payload }) {
       const data = [...state.formUnique_data];
       const foundId = data.findIndex(x => x.id === payload.id);
       data[foundId] = payload;
@@ -110,11 +53,11 @@ const formUniqueSlice = createSlice({
         dataType: '',
       };
     },
-    [formUnique_edit.fulfilled]: (state, { payload }) => {
+    formUnique_edit(state, { payload }) {
       state.isEdit = true;
       state.formUnique_form = payload;
     },
-    [formUnique_reset.fulfilled]: state => {
+    formUnique_reset(state) {
       state.isEdit = false;
       state.formUnique_form = {
         id: '',
@@ -127,6 +70,13 @@ const formUniqueSlice = createSlice({
   },
 });
 
-export const { formUnique_setForm } = formUniqueSlice.actions;
+export const {
+  formUnique_setForm,
+  formUnique_doDelete,
+  formUnique_doSave,
+  formUnique_doEdit,
+  formUnique_edit,
+  formUnique_reset,
+} = formUniqueSlice.actions;
 
 export default formUniqueSlice.reducer;
