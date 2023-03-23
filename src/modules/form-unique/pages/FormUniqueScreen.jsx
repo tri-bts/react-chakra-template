@@ -88,69 +88,81 @@ const FormUniqueScreen = () => {
     [dispatch, toast]
   );
 
-  const onDelete = useCallback(async value => {
-    try {
-      await dispatch(formUnique_doDelete(value)).unwrap();
-      toast({
-        title: 'Information',
-        description: 'Berhasil menghapus data',
-        status: 'success',
-        position: 'top-right',
-      });
-    } catch (err) {
-      toast({
-        title: 'Information',
-        description: err.message,
-        status: 'error',
-        position: 'top-right',
-      });
-    }
-  });
+  const onDelete = useCallback(
+    async value => {
+      try {
+        await dispatch(formUnique_doDelete(value)).unwrap();
+        toast({
+          title: 'Information',
+          description: 'Berhasil menghapus data',
+          status: 'success',
+          position: 'top-right',
+        });
+      } catch (err) {
+        toast({
+          title: 'Information',
+          description: err.message,
+          status: 'error',
+          position: 'top-right',
+        });
+      }
+    },
+    [dispatch, toast]
+  );
 
-  const onEdit = useCallback(async value => {
-    try {
-      await dispatch(formUnique_doEdit(value)).unwrap();
-      toast({
-        title: 'Information',
-        description: 'Berhasil mengubah data',
-        status: 'success',
-        position: 'top-right',
-      });
-    } catch (err) {
-      toast({
-        title: 'Information',
-        description: err.message,
-        status: 'error',
-        position: 'top-right',
-      });
-    }
-  });
+  const onEdit = useCallback(
+    async value => {
+      try {
+        await dispatch(formUnique_doEdit(value)).unwrap();
+        toast({
+          title: 'Information',
+          description: 'Berhasil mengubah data',
+          status: 'success',
+          position: 'top-right',
+        });
+      } catch (err) {
+        toast({
+          title: 'Information',
+          description: err.message,
+          status: 'error',
+          position: 'top-right',
+        });
+      }
+    },
+    [dispatch, toast]
+  );
 
-  const edit = useCallback(async value => {
-    try {
-      await dispatch(formUnique_edit(value)).unwrap();
-    } catch (err) {
-      toast({
-        title: 'Information',
-        description: err.message,
-        status: 'error',
-        position: 'top-right',
-      });
-    }
-  });
+  const edit = useCallback(
+    async value => {
+      try {
+        await dispatch(formUnique_edit(value)).unwrap();
+      } catch (err) {
+        toast({
+          title: 'Information',
+          description: err.message,
+          status: 'error',
+          position: 'top-right',
+        });
+      }
+    },
+    [dispatch, toast]
+  );
 
-  const reset = useCallback(async value => {
-    try {
-      await dispatch(formUnique_reset(value)).unwrap();
-    } catch (err) {
-      toast({
-        title: 'Information',
-        description: err.message,
-        status: 'error',
-        position: 'top-right',
-      });
-    }
-  });
+  const reset = useCallback(
+    async value => {
+      try {
+        await dispatch(formUnique_reset(value)).unwrap();
+      } catch (err) {
+        toast({
+          title: 'Information',
+          description: err.message,
+          status: 'error',
+          position: 'top-right',
+        });
+      }
+    },
+    [dispatch, toast]
+  );
 
   return (
     <div className={styles.container}>
