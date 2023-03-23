@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FullCalendar from '@fullcalendar/react'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
-import timeGridPlugin from '@fullcalendar/timegrid'
+import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useDispatch } from 'react-redux';
 
@@ -15,7 +15,7 @@ import EventInput from '../components/EventInput';
 function renderEventContent(eventInfo) {
   return (
     <>
-      <b>{eventInfo.timeText}</b>
+      <b>{eventInfo.timeText} </b>
       <i>{eventInfo.event.title}</i>
     </>
   );
@@ -28,6 +28,11 @@ function EventScreen() {
 
   function handleDateClick() {
     onOpen();
+  }
+
+  function onAddEvent(values) {
+    setEvents(events => [...events, values]);
+    onClose();
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,7 +56,7 @@ function EventScreen() {
         eventContent={renderEventContent}
       />
 
-      {onOpen && <EventInput isOpen={isOpen} onClose={onClose} />}
+      {onOpen && <EventInput isOpen={isOpen} onClose={onClose} onAddEvent={onAddEvent} />}
     </Container>
   );
 }
