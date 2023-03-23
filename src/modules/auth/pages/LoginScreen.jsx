@@ -12,7 +12,7 @@ import {
   Link,
   Stack,
   useToast,
-  VStack
+  VStack,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { auth_doLogin } from '../slice/auth.slice';
@@ -21,34 +21,33 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginScreen() {
   const dispatch = useDispatch();
-  const toast = useToast();
+  const toast = useToast({
+    position: 'top-right',
+    title: 'Information',
+    isClosable: true,
+    duration: 2000,
+  });
   const navigate = useNavigate();
 
   const onSubmit = useCallback(
-    async (values) => {
+    async values => {
       try {
         await dispatch(auth_doLogin(values)).unwrap();
 
         toast({
-          title: 'Information',
           description: 'Selamat dating di KiSeratus!',
           status: 'success',
-          position: 'top-right'
         });
 
-        setTimeout(() => {
-          navigate('/');
-        }, 1000);
+        navigate('/');
       } catch (err) {
         toast({
-          title: 'Information',
           description: err.message,
           status: 'error',
-          position: 'top-right'
         });
       }
     },
-    [dispatch, toast]
+    [dispatch, toast, navigate]
   );
 
   return (

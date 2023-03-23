@@ -4,6 +4,7 @@ import LoginScreen from '../../auth/pages/LoginScreen';
 import DashboardScreen from '../../dashboard/pages/DashboardScreen';
 import FormAdvanceScreen from '@/modules/form-advance/pages/FormAdvanceScreen';
 import FormUniqueScreen from '@/modules/form-unique/pages/FormUniqueScreen';
+import InformationScreen from '@/modules/information/pages/InformationScreen';
 
 // Lazy load pages
 
@@ -26,6 +27,7 @@ const routes = [
       { index: true, element: <DashboardScreen /> },
       { path: '/form-advance', element: <FormAdvanceScreen /> },
       { path: '/form-unique', element: <FormUniqueScreen /> },
+      { path: '/information', element: <InformationScreen /> },
     ],
   },
 ];
