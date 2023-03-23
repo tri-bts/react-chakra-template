@@ -44,9 +44,9 @@ function EventScreen() {
     onOpenEventDetail();
   }
   function removeEvent() {
-    onCloseEventDetail();
     if (confirm(`Are you sure you want to delete the event '${event.title}'`)) {
       event.remove();
+      onCloseEventDetail();
     }
   }
 
