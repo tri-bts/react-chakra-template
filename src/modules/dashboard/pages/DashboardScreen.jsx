@@ -27,7 +27,7 @@ const DashboardScreen = () => {
             rounded={'md'}>
             KiSeratus
           </Text>
-          <Heading>Selamat Datang di Aplikasi KiSeratus’</Heading>
+          <Heading>Selamat Datang di Aplikasi KiSeratus</Heading>
           <Text color={'gray.500'} fontSize={'lg'}>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
             invidunt ut labore

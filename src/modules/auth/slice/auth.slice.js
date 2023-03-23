@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AUTH_ROLE_PERMISSIONS, AUTH_USERS, MENUS } from '../constant/auth.constant';
+import { AUTH_ROLE_PERMISSIONS, AUTH_USERS } from '../constant/auth.constant';
 
 export const auth_doLogin = createAsyncThunk('auth/login', async (payload, { rejectWithValue }) => {
   try {
@@ -34,7 +34,8 @@ const authSlice = createSlice({
     auth_loading: false,
     auth_permissions: [],
     auth_fullName: '',
-    auth_menus: [],
+    auth_roles: [],
+    auth_token: null,
   },
   reducers: {
     auth_clearState(state) {
@@ -42,6 +43,7 @@ const authSlice = createSlice({
       state.auth_permissions = [];
       state.auth_fullName = '';
       state.auth_menus = [];
+      state.auth_token = null;
     },
   },
   extraReducers: {
@@ -59,7 +61,8 @@ const authSlice = createSlice({
         acc.push(...AUTH_ROLE_PERMISSIONS[role]);
         return acc;
       }, []);
-      state.auth_menus = MENUS.filter(menu => payload.roles.includes(menu.access));
+      state.auth_roles = payload.roles;
+      state.auth_token = '@tokenauthberarer';
     },
   },
 });
