@@ -8,7 +8,15 @@ import SortableTree, {
   changeNodeAtPath,
 } from '@nosferatu500/react-sortable-tree';
 
-import { Box, Button, IconButton, Input, Text, useToast } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  IconButton,
+  Input,
+  Text,
+  useToast,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import {
   AiFillCloseCircle,
   AiFillPlusCircle,
@@ -40,6 +48,8 @@ const FamilyScreen = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const text = useColorModeValue('gray.800', 'white');
+  const background = useColorModeValue('white', 'transparent');
 
   const family_treeData = useSelector(state => state.family.family_treeData);
   const isCanEdit = useCheckPermission(['EDIT_TREE']);
@@ -118,7 +128,7 @@ const FamilyScreen = props => {
   }, [navigate]);
 
   return (
-    <Box bg="white" borderRadius="md" p="5">
+    <Box bg={background} borderRadius="md" p="5">
       <Box as="form" display="flex" alignItems="start" gap={5} mb={5} onSubmit={selectNextMatch}>
         <Box>
           <Input
@@ -128,7 +138,7 @@ const FamilyScreen = props => {
             colorScheme="red"
             onChange={onSearchChange}
           />
-          <Text>
+          <Text color="inherit">
             &nbsp;
             {searchFoundCount > 0 ? searchFocusIndex + 1 : 0}
             &nbsp;/&nbsp;
@@ -151,21 +161,28 @@ const FamilyScreen = props => {
           />
         </Box>
       </Box>
-      <Box display="flex" alignItems="center" gap={5}>
-        {props.isEdit ? (
-          <>
+      <Box display="flex" alignItems="center" justifyContent="space-between" gap={5}>
+        <Text fontSize="2xl" color={text}>
+          Silsilah Keluarga
+        </Text>
+        {props.isEdit && (
+          <Box display="flex" gap={5}>
             <Button colorScheme="blue" onClick={() => onAddParent('bottom')}>
               Tambah Kepala Baru ke Bawah
             </Button>
             <Button colorScheme="blue" onClick={() => onAddParent('top')}>
               Tambah Kepala Baru ke Atas
             </Button>{' '}
-          </>
-        ) : (
-          <Text fontSize="2xl">Silsilah Keluarga</Text>
+          </Box>
         )}
       </Box>
-      <Box h="60vh" py="4">
+      <Box
+        h="calc(100vh - 350px)"
+        py="4"
+        my="5"
+        borderColor="gray.300"
+        borderRadius="lg"
+        borderWidth="1px">
         <SortableTree
           treeData={treeData}
           onChange={setTreeData}
@@ -179,14 +196,16 @@ const FamilyScreen = props => {
             title: props.isEdit ? (
               <Input
                 placeholder="Masukkan nama"
-                colorScheme="red"
                 value={node?.name || ''}
                 onChange={onInputValue(path, node)}
                 size="sm"
                 variant="flushed"
+                bg={background}
+                color="gray.800"
+                _placeholder={{ color: 'gray.400' }}
               />
             ) : (
-              <Text>{node.name || '-'}</Text>
+              <Text color="gray.800">{node.name || '-'}</Text>
             ),
             buttons: props.isEdit
               ? [
