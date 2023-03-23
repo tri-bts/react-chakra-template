@@ -14,6 +14,9 @@ import {
   useNumberInput,
   HStack,
   useToast,
+  InputLeftElement,
+  InputGroup,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
@@ -29,7 +32,6 @@ import {
 } from '../slice/formUnique.slice';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import styles from './FormUniqueScreen.module.scss';
 
 const schema = Yup.object().shape({
   type: Yup.string().required().label('Type'),
@@ -68,7 +70,7 @@ const FormUniqueScreen = () => {
   const onSave = useCallback(
     async values => {
       try {
-        await dispatch(formUnique_doSave(values)).unwrap();
+        await dispatch(formUnique_doSave(values));
 
         toast({
           title: 'Information',
@@ -91,7 +93,7 @@ const FormUniqueScreen = () => {
   const onDelete = useCallback(
     async value => {
       try {
-        await dispatch(formUnique_doDelete(value)).unwrap();
+        await dispatch(formUnique_doDelete(value));
         toast({
           title: 'Information',
           description: 'Berhasil menghapus data',
@@ -113,7 +115,7 @@ const FormUniqueScreen = () => {
   const onEdit = useCallback(
     async value => {
       try {
-        await dispatch(formUnique_doEdit(value)).unwrap();
+        await dispatch(formUnique_doEdit(value));
         toast({
           title: 'Information',
           description: 'Berhasil mengubah data',
@@ -135,7 +137,7 @@ const FormUniqueScreen = () => {
   const edit = useCallback(
     async value => {
       try {
-        await dispatch(formUnique_edit(value)).unwrap();
+        await dispatch(formUnique_edit(value));
       } catch (err) {
         toast({
           title: 'Information',
@@ -151,7 +153,7 @@ const FormUniqueScreen = () => {
   const reset = useCallback(
     async value => {
       try {
-        await dispatch(formUnique_reset(value)).unwrap();
+        await dispatch(formUnique_reset(value));
       } catch (err) {
         toast({
           title: 'Information',
@@ -165,7 +167,13 @@ const FormUniqueScreen = () => {
   );
 
   return (
-    <div className={styles.container}>
+    <Box
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      p={4}
+      height="89vh"
+      bg={useColorModeValue('white', 'gray.800')}>
       <Flex flex={1} direction={'column'} h={'full'} gap={4}>
         <Box flexGrow={1} overflow="auto">
           {formUniqueData.map(formField => (
@@ -197,11 +205,21 @@ const FormUniqueScreen = () => {
               {formField.type && (
                 <FormControl mt={2}>
                   <FormLabel>{formField.label ? formField.label : 'Label'}</FormLabel>
-                  {formField.type === 'text' && <Input type="text" />}
+                  {formField.type === 'text' && (
+                    <Input type="text" id={formField.id} maxLength={formField.maxLength} />
+                  )}
                   {formField.type === 'number' && (
                     <HStack>
                       <Button {...inc}>+</Button>
-                      <Input {...input} />
+                      <InputGroup>
+                        {formField.dataType === 'positive' && (
+                          <InputLeftElement pointerEvents="none">+</InputLeftElement>
+                        )}
+                        {formField.dataType === 'negative' && (
+                          <InputLeftElement pointerEvents="none">-</InputLeftElement>
+                        )}
+                        <Input id={formField.id} {...input} />
+                      </InputGroup>
                       <Button {...dec}>-</Button>
                     </HStack>
                   )}
@@ -211,7 +229,7 @@ const FormUniqueScreen = () => {
                       showIcon
                       selected={startDate}
                       onChange={date => setStartDate(date)}
-                      dateFormat="MM/dd/yyyy"
+                      customInput={<Input />}
                     />
                   )}
                 </FormControl>
@@ -221,7 +239,7 @@ const FormUniqueScreen = () => {
         </Box>
         <Box borderWidth="1px" borderRadius="lg" overflow="auto" p={4}>
           <form onSubmit={formik.handleSubmit}>
-            <Flex flex={1} gap="20px">
+            <Flex flex={1} gap="20px" direction={{ base: 'column', md: 'row' }}>
               <Box flexGrow={1}>
                 <FormControl isInvalid={!!formik.errors.type && formik.touched.type} id="type">
                   <FormLabel>Type</FormLabel>
@@ -310,11 +328,21 @@ const FormUniqueScreen = () => {
                 {formik.values.type && (
                   <FormControl mt={2}>
                     <FormLabel>{formik.values.label ? formik.values.label : 'Label'}</FormLabel>
-                    {formik.values.type === 'text' && <Input type="text" />}
+                    {formik.values.type === 'text' && (
+                      <Input type="text" maxLength={formik.values.maxLength} />
+                    )}
                     {formik.values.type === 'number' && (
                       <HStack>
                         <Button {...inc}>+</Button>
-                        <Input {...input} />
+                        <InputGroup>
+                          {formik.values.dataType === 'positive' && (
+                            <InputLeftElement pointerEvents="none">+</InputLeftElement>
+                          )}
+                          {formik.values.dataType === 'negative' && (
+                            <InputLeftElement pointerEvents="none">-</InputLeftElement>
+                          )}
+                          <Input {...input} />
+                        </InputGroup>
                         <Button {...dec}>-</Button>
                       </HStack>
                     )}
@@ -324,6 +352,7 @@ const FormUniqueScreen = () => {
                         showIcon
                         selected={startDate}
                         onChange={date => setStartDate(date)}
+                        customInput={<Input />}
                       />
                     )}
                   </FormControl>
@@ -333,7 +362,7 @@ const FormUniqueScreen = () => {
           </form>
         </Box>
       </Flex>
-    </div>
+    </Box>
   );
 };
 
