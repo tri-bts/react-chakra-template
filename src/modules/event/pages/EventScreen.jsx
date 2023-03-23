@@ -46,6 +46,12 @@ function EventScreen() {
     //   clickInfo.event.remove();
     // }
   }
+  function removeEvent() {
+    onCloseEventDetail();
+    if (confirm(`Are you sure you want to delete the event '${event.title}'`)) {
+      event.remove();
+    }
+  }
 
   function onAddEvent(values) {
     values.id = uuidv4();
@@ -77,7 +83,12 @@ function EventScreen() {
 
       {onOpen && <EventInput isOpen={isOpen} onClose={onClose} onAddEvent={onAddEvent} />}
       {onOpenEventDetail && (
-        <EventDetail isOpen={isOpenEventDetail} onClose={onCloseEventDetail} event={event} />
+        <EventDetail
+          isOpen={isOpenEventDetail}
+          onClose={onCloseEventDetail}
+          event={event}
+          removeEvent={removeEvent}
+        />
       )}
     </Container>
   );

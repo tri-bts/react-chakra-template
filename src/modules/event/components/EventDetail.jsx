@@ -5,6 +5,8 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
+  ModalFooter,
+  Button,
   ModalCloseButton,
   List,
   ListItem,
@@ -13,7 +15,7 @@ import {
 import { FiHash, FiCalendar } from 'react-icons/fi';
 import { formatDate } from '@fullcalendar/core';
 
-function EventDetail({ isOpen, onClose, event }) {
+function EventDetail({ isOpen, onClose, event, removeEvent }) {
   const handleClose = () => {
     onClose();
   };
@@ -43,6 +45,11 @@ function EventDetail({ isOpen, onClose, event }) {
             </ListItem>
           </List>
         </ModalBody>
+        <ModalFooter>
+          <Button colorScheme="telegram" mr={3} onClick={removeEvent}>
+            Remove
+          </Button>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );
