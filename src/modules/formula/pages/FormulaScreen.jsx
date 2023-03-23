@@ -54,7 +54,7 @@ const FormulaScreen = () => {
         {formulas.map((formula, index) => {
           return (
             <Box key={index} my={2}>
-              <FormulaInput label={formula.label} formula={formula.formula} />
+              <FormulaInput label={formula.label} formula={formula.formula} id={formula.id} />
             </Box>
           );
         })}
