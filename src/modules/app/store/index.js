@@ -9,6 +9,7 @@ import familyReducer from '@/modules/family-tree/slice/family.slice';
 import formUniqueReducer from '@/modules/form-unique/slice/formUnique.slice';
 import informationReducer from '@/modules/information/slice/information.slice';
 import eventReducer from '@/modules/event/slice/event.slice';
+import formulaReducer from '@/modules/formula/redux/formula.slice';
 
 const rootReducer = combineReducers({
   auth: persistReducer({ key: 'auth', storage }, authReducer),
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   formUnique: persistReducer({ key: 'form-unique', storage }, formUniqueReducer),
   event: persistReducer({ key: 'event', storage }, eventReducer),
   information: informationReducer,
+  formula: persistReducer({ key: 'formula', storage }, formulaReducer),
 });
 
 export const store = configureStore({
