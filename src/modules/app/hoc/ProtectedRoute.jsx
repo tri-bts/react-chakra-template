@@ -14,7 +14,7 @@ const ProtectedRoute = ({ component }) => {
 };
 
 ProtectedRoute.propTypes = {
-  component: PropTypes.node.isRequired
+  component: PropTypes.node.isRequired,
 };
 
 export default memo(ProtectedRoute);
