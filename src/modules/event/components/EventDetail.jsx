@@ -131,7 +131,7 @@ function EventDetail({ isOpen, onClose, event, removeEvent }) {
                     </FormControl>
                     <Stack spacing={6}>
                       <Button type="submit" disabled={isSubmitting} colorScheme="telegram" mr={3}>
-                        Add
+                        Update
                       </Button>
                     </Stack>
                   </VStack>
