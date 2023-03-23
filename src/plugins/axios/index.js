@@ -1,25 +1,27 @@
 import axios from 'axios';
 
-export const BASE_URL = process.env.REACT_APP_API_URL;
+const BASE_URL = process.env.REACT_APP_API_URL;
+const RAPID_API_KEY = process.env.REACT_APP_RAPID_API_KEY;
+const RAPID_API_HOST = process.env.REACT_APP_RAPID_API_HOST;
 
 const axiosClient = axios.create({
-  headers: {
-    'Content-Type': 'application/json',
-  },
   baseURL: BASE_URL,
-  timeout: 10000,
 });
 
 axiosClient.interceptors.request.use(
-  set => {
+  config => {
     // TODO check auth token
     // if (isAuthenticated) {
     //   set.headers = {
     //     Authorization: `Bearer ${useAuth.token}`,
     //   };
     // }
+    config.headers = {
+      'X-RapidAPI-Key': RAPID_API_KEY,
+      'X-RapidAPI-Host': RAPID_API_HOST,
+    };
 
-    return set;
+    return config;
   },
   error => Promise.reject(error)
 );
