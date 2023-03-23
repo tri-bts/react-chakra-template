@@ -15,6 +15,7 @@ import NotFoundScreen from '@/modules/not-found/pages/NotFoundScreen';
 import FamilyScreen from '@/modules/family-tree/pages/FamilyScreen';
 import EventScreen from '@/modules/event/pages/EventScreen';
 import TableScreen from '@/modules/table/pages/TableScreen';
+import FormulaScreen from '@/modules/formula/pages/FormulaScreen';
 
 const routes = [
   /**
@@ -45,6 +46,7 @@ const routes = [
       },
       { path: '/event', element: <EventScreen />, access: 'event' },
       { path: '/table', element: <TableScreen />, access: 'table' },
+      { path: '/formula', element: <FormulaScreen />, access: 'formula' },
 
       /**
        * 404 Page not found
