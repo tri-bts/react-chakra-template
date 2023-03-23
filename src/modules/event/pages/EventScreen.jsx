@@ -40,7 +40,6 @@ function EventScreen() {
   }
 
   function handleEventClick(clickInfo) {
-    console.log(clickInfo.event);
     setEvent(clickInfo.event);
     onOpenEventDetail();
   }
