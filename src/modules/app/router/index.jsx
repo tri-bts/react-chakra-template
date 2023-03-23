@@ -7,6 +7,7 @@ import FormUniqueScreen from '@/modules/form-unique/pages/FormUniqueScreen';
 import InformationScreen from '@/modules/information/pages/InformationScreen';
 import NotFoundScreen from '@/modules/not-found/pages/NotFoundScreen';
 import FamilyScreen from '@/modules/family-tree/pages/FamilyScreen';
+import TableScreen from '@/modules/table/pages/TableScreen';
 
 // Lazy load pages
 
@@ -32,6 +33,7 @@ const routes = [
       { path: '/information', element: <InformationScreen /> },
       { path: '/family-tree', element: <FamilyScreen isEdit={false} /> },
       { path: '/family-tree/edit', index: false, element: <FamilyScreen isEdit={true} /> },
+      { path: '/table', element: <TableScreen /> },
 
       /**
        * 404 Page not found
