@@ -111,11 +111,11 @@ const FamilyScreen = props => {
       status: 'success',
       position: 'top-right',
     });
-  }, [dispatch, treeData]);
+  }, [dispatch, treeData, toast]);
 
   const onCancelEdit = useCallback(() => {
     navigate('/family-tree');
-  }, []);
+  }, [navigate]);
 
   return (
     <Box>

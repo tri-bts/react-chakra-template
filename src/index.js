@@ -10,6 +10,7 @@ import { ChakraProvider, theme } from '@chakra-ui/react';
 import App from './App';
 
 import '@nosferatu500/react-sortable-tree/style.css';
+import '@/assets/styles/global.css';
 
 const root = document.getElementById('root');
 render(
