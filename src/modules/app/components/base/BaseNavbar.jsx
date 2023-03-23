@@ -8,7 +8,6 @@ import {
   Flex,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Stack,
@@ -50,8 +49,6 @@ const BaseNavbar = () => {
                   />
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Account Settings</MenuItem>
-                  <MenuDivider />
                   <MenuItem onClick={logout}>Logout</MenuItem>
                 </MenuList>
               </Menu>

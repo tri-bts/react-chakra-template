@@ -5,6 +5,7 @@ import DashboardScreen from '../../dashboard/pages/DashboardScreen';
 import FormAdvanceScreen from '@/modules/form-advance/pages/FormAdvanceScreen';
 import FormUniqueScreen from '@/modules/form-unique/pages/FormUniqueScreen';
 import InformationScreen from '@/modules/information/pages/InformationScreen';
+import NotFoundScreen from '@/modules/not-found/pages/NotFoundScreen';
 
 // Lazy load pages
 
@@ -28,6 +29,14 @@ const routes = [
       { path: '/form-advance', element: <FormAdvanceScreen /> },
       { path: '/form-unique', element: <FormUniqueScreen /> },
       { path: '/information', element: <InformationScreen /> },
+
+      /**
+       * 404 Page not found
+       */
+      {
+        path: '*',
+        element: <NotFoundScreen />,
+      },
     ],
   },
 ];
