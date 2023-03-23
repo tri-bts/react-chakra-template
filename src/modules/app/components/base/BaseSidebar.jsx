@@ -38,9 +38,11 @@ const SidebarContent = ({ onClose, ...rest }) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          {logo}
-        </Text>
+        <Link as={Link} to="/">
+          <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+            {logo}
+          </Text>
+        </Link>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {menus.map(link => (
@@ -96,10 +98,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
       justifyContent="flex-start"
       {...rest}>
       <IconButton variant="outline" onClick={onOpen} aria-label="open menu" icon={<FiMenu />} />
-
-      <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        {logo}
-      </Text>
+      <Link as={Link} to="/">
+        <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
+          {logo}
+        </Text>
+      </Link>
     </Flex>
   );
 };

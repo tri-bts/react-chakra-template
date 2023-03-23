@@ -17,8 +17,6 @@ function InformationScreen() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    console.log(isLoading);
-
     const data = await dispatch(information_fetchStatistic()).unwrap();
     setPopulation(data);
   }, [dispatch]);
