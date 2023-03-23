@@ -62,7 +62,7 @@ const MyModal = ({ isOpen, onClose, setData, column, setColumn }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} size="xl">
+    <Modal isOpen={isOpen} onClose={handleClose} size="3xl">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add Configuration Table</ModalHeader>

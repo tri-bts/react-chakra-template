@@ -10,6 +10,9 @@ import { ChakraProvider, theme } from '@chakra-ui/react';
 import { httpInjectStore } from '@/plugins/axios';
 import App from './App';
 
+import '@nosferatu500/react-sortable-tree/style.css';
+import '@/assets/styles/global.css';
+
 // Inject store
 httpInjectStore(store);
 

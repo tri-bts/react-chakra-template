@@ -1,16 +1,20 @@
-// import ProtectedRoute from '../hoc/ProtectedRoute';
+// Guard hoc
+import ProtectedRoute from '../hoc/ProtectedRoute';
+import { routeAppendPermission } from '@/modules/app/utils/route.util';
+
+// Layout
 import DefaultLayout from '../layout/DefaultLayout';
+
+// Screens
 import LoginScreen from '../../auth/pages/LoginScreen';
 import DashboardScreen from '../../dashboard/pages/DashboardScreen';
 import FormAdvanceScreen from '@/modules/form-advance/pages/FormAdvanceScreen';
 import FormUniqueScreen from '@/modules/form-unique/pages/FormUniqueScreen';
 import InformationScreen from '@/modules/information/pages/InformationScreen';
 import NotFoundScreen from '@/modules/not-found/pages/NotFoundScreen';
+import FamilyScreen from '@/modules/family-tree/pages/FamilyScreen';
 import EventScreen from '@/modules/event/pages/EventScreen';
 import TableScreen from '@/modules/table/pages/TableScreen';
-import FormulaScreen from '@/modules/formula/pages/FormulaScreen';
-
-// Lazy load pages
 
 const routes = [
   /**
@@ -26,16 +30,21 @@ const routes = [
    */
   {
     path: '/',
-    // element: <ProtectedRoute component={<DefaultLayout />} />,
-    element: <DefaultLayout />,
+    element: <ProtectedRoute component={<DefaultLayout />} />,
     children: [
       { index: true, element: <DashboardScreen /> },
-      { path: '/form-advance', element: <FormAdvanceScreen /> },
-      { path: '/form-unique', element: <FormUniqueScreen /> },
-      { path: '/information', element: <InformationScreen /> },
-      { path: '/event', element: <EventScreen /> },
-      { path: '/table', element: <TableScreen /> },
-      { path: '/formula', element: <FormulaScreen /> },
+      { path: '/form-advance', element: <FormAdvanceScreen />, access: 'formAdvance' },
+      { path: '/form-unique', element: <FormUniqueScreen />, access: 'formUnique' },
+      { path: '/information', element: <InformationScreen />, access: 'graphic' },
+      { path: '/family-tree', element: <FamilyScreen isEdit={false} />, access: 'tree' },
+      {
+        path: '/family-tree/edit',
+        index: false,
+        element: <FamilyScreen isEdit={true} />,
+        access: 'tree',
+      },
+      { path: '/event', element: <EventScreen />, access: 'event' },
+      { path: '/table', element: <TableScreen />, access: 'table' },
 
       /**
        * 404 Page not found
@@ -48,4 +57,4 @@ const routes = [
   },
 ];
 
-export default routes;
+export default routeAppendPermission(routes);
