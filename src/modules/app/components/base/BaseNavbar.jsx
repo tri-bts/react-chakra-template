@@ -12,7 +12,7 @@ import {
   MenuItem,
   MenuList,
   Stack,
-  useColorModeValue
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 import { auth_clearState } from '@/modules/auth/slice/auth.slice';

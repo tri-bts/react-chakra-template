@@ -35,20 +35,20 @@ const authSlice = createSlice({
     auth_isLoggedIn: false,
     auth_loading: false,
     auth_permissions: [],
-    auth_fullName: ''
+    auth_fullName: '',
   },
   reducers: {
     auth_clearState(state) {
       state.auth_isLoggedIn = false;
       state.auth_permissions = [];
       state.auth_fullName = '';
-    }
+    },
   },
   extraReducers: {
-    [auth_doLogin.pending]: (state) => {
+    [auth_doLogin.pending]: state => {
       state.auth_loading = true;
     },
-    [auth_doLogin.rejected]: (state) => {
+    [auth_doLogin.rejected]: state => {
       state.auth_loading = false;
     },
     [auth_doLogin.fulfilled]: (state, { payload }) => {
@@ -59,8 +59,8 @@ const authSlice = createSlice({
         acc.push(...AUTH_ROLE_PERMISSIONS[role]);
         return acc;
       }, []);
-    }
-  }
+    },
+  },
 });
 
 export const { auth_clearState } = authSlice.actions;

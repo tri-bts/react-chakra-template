@@ -12,7 +12,7 @@ import {
   Link,
   Stack,
   useToast,
-  VStack
+  VStack,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { auth_doLogin } from '../slice/auth.slice';
@@ -25,7 +25,7 @@ export default function LoginScreen() {
   const navigate = useNavigate();
 
   const onSubmit = useCallback(
-    async (values) => {
+    async values => {
       try {
         await dispatch(auth_doLogin(values)).unwrap();
 
@@ -33,7 +33,7 @@ export default function LoginScreen() {
           title: 'Information',
           description: 'Selamat dating di KiSeratus!',
           status: 'success',
-          position: 'top-right'
+          position: 'top-right',
         });
 
         setTimeout(() => {
@@ -44,7 +44,7 @@ export default function LoginScreen() {
           title: 'Information',
           description: err.message,
           status: 'error',
-          position: 'top-right'
+          position: 'top-right',
         });
       }
     },

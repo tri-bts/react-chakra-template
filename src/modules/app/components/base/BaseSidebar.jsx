@@ -11,7 +11,7 @@ import {
   Drawer,
   DrawerContent,
   Text,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu } from 'react-icons/fi';
 
@@ -20,7 +20,7 @@ const LinkItems = [
   { name: 'Trending', icon: FiTrendingUp },
   { name: 'Explore', icon: FiCompass },
   { name: 'Favourites', icon: FiStar },
-  { name: 'Settings', icon: FiSettings }
+  { name: 'Settings', icon: FiSettings },
 ];
 
 const SidebarContent = ({ onClose, ...rest }) => {
@@ -39,7 +39,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
+      {LinkItems.map(link => (
         <NavItem key={link.name} icon={link.icon}>
           {link.name}
         </NavItem>
@@ -60,7 +60,7 @@ const NavItem = ({ icon, children, ...rest }) => {
         cursor="pointer"
         _hover={{
           bg: 'cyan.400',
-          color: 'white'
+          color: 'white',
         }}
         {...rest}>
         {icon && (
@@ -68,7 +68,7 @@ const NavItem = ({ icon, children, ...rest }) => {
             mr="4"
             fontSize="16"
             _groupHover={{
-              color: 'white'
+              color: 'white',
             }}
             as={icon}
           />
