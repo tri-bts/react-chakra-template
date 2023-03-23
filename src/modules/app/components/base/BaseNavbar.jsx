@@ -12,7 +12,7 @@ import {
   MenuItem,
   MenuList,
   Stack,
-  useColorModeValue
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 import { auth_clearState } from '@/modules/auth/slice/auth.slice';
@@ -31,7 +31,7 @@ const BaseNavbar = () => {
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box>Q100+</Box>
+          <Box></Box>
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
               <ColorModeSwitcher justifySelf="flex-end" />
