@@ -18,10 +18,6 @@ const formulaSlice = createSlice({
     formula_setDialog: (state, { payload }) => {
       state.formula_dialog = payload;
     },
-    formula_openDialog: (state, {payload}) => {
-      state.formula_dialog = {...state.formula_dialog, isOpen: true}
-    }
-}
   },
   extraReducers: {
     [formula_save.fulfilled]: (state, { payload }) => {
