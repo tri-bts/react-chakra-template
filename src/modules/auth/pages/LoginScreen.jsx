@@ -2,53 +2,58 @@ import React, { useCallback } from 'react';
 
 import {
   Button,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
   Heading,
   Image,
   Input,
-  Link,
   Stack,
   useToast,
-  VStack
+  VStack,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { auth_doLogin } from '../slice/auth.slice';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object().shape({
+  username: Yup.string().required().label('Username'),
+  password: Yup.string().required().label('Password'),
+});
+
 export default function LoginScreen() {
   const dispatch = useDispatch();
-  const toast = useToast();
+  const toast = useToast({
+    position: 'top-right',
+    title: 'Information',
+    isClosable: true,
+    duration: 2000,
+  });
   const navigate = useNavigate();
 
   const onSubmit = useCallback(
-    async (values) => {
+    async values => {
       try {
         await dispatch(auth_doLogin(values)).unwrap();
 
         toast({
-          title: 'Information',
           description: 'Selamat dating di KiSeratus!',
           status: 'success',
-          position: 'top-right'
         });
 
-        setTimeout(() => {
-          navigate('/');
-        }, 1000);
+        navigate('/');
       } catch (err) {
         toast({
-          title: 'Information',
           description: err.message,
           status: 'error',
-          position: 'top-right'
         });
       }
     },
-    [dispatch, toast]
+    [dispatch, toast, navigate]
   );
 
   return (
@@ -57,20 +62,32 @@ export default function LoginScreen() {
         <Stack spacing={4} w={'full'} maxW={'md'}>
           <Heading fontSize={'2xl'}>Sign in to your account</Heading>
 
-          <Formik initialValues={{ username: '', password: '' }} onSubmit={onSubmit}>
-            {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+          <Formik
+            initialValues={{ username: '', password: '' }}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}>
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+            }) => (
               <form onSubmit={handleSubmit}>
                 <VStack spacing={4} align="flex-start">
-                  <FormControl id="username">
+                  <FormControl id="username" isInvalid={!!errors.username && touched.username}>
                     <FormLabel>Username</FormLabel>
                     <Input
                       type="text"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.email}
+                      value={values.username}
                     />
+                    <FormErrorMessage>{errors.username}</FormErrorMessage>
                   </FormControl>
-                  <FormControl id="password">
+                  <FormControl id="password" isInvalid={!!errors.password && touched.password}>
                     <FormLabel>Password</FormLabel>
                     <Input
                       type="password"
@@ -78,15 +95,9 @@ export default function LoginScreen() {
                       onBlur={handleBlur}
                       value={values.password}
                     />
+                    <FormErrorMessage>{errors.password}</FormErrorMessage>
                   </FormControl>
                   <Stack spacing={6}>
-                    <Stack
-                      direction={{ base: 'column', sm: 'row' }}
-                      align={'start'}
-                      justify={'space-between'}>
-                      <Checkbox>Remember me</Checkbox>
-                      <Link color={'blue.500'}>Forgot password?</Link>
-                    </Stack>
                     <Button
                       type="submit"
                       colorScheme={'blue'}

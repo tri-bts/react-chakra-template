@@ -7,7 +7,11 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider, theme } from '@chakra-ui/react';
+import { httpInjectStore } from '@/plugins/axios';
 import App from './App';
+
+// Inject store
+httpInjectStore(store);
 
 const root = document.getElementById('root');
 render(
