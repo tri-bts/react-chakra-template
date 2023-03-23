@@ -42,9 +42,6 @@ function EventScreen() {
   function handleEventClick(clickInfo) {
     setEvent(clickInfo.event);
     onOpenEventDetail();
-    // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-    //   clickInfo.event.remove();
-    // }
   }
   function removeEvent() {
     onCloseEventDetail();
