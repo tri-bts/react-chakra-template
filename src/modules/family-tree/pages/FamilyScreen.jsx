@@ -118,7 +118,7 @@ const FamilyScreen = props => {
   }, [navigate]);
 
   return (
-    <Box>
+    <Box bg="white" borderRadius="md" p="5">
       <Box as="form" display="flex" alignItems="start" gap={5} mb={5} onSubmit={selectNextMatch}>
         <Box>
           <Input
@@ -165,7 +165,7 @@ const FamilyScreen = props => {
           <Text fontSize="2xl">Silsilah Keluarga</Text>
         )}
       </Box>
-      <Box h="70vh" py="4">
+      <Box h="60vh" py="4">
         <SortableTree
           treeData={treeData}
           onChange={setTreeData}
