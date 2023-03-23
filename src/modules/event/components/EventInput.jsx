@@ -16,9 +16,6 @@ import {
 } from '@chakra-ui/react';
 import { Formik } from 'formik';
 
-import ReactDatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({

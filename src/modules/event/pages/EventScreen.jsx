@@ -30,6 +30,12 @@ function EventScreen() {
     onOpen();
   }
 
+  function handleEventClick(clickInfo) {
+    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+      clickInfo.event.remove();
+    }
+  }
+
   function onAddEvent(values) {
     setEvents(events => [...events, values]);
     onClose();
@@ -53,6 +59,7 @@ function EventScreen() {
         initialView="dayGridMonth"
         dateClick={handleDateClick}
         events={events}
+        eventClick={handleEventClick}
         eventContent={renderEventContent}
       />
 
