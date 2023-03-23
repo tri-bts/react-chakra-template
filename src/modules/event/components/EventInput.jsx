@@ -28,7 +28,7 @@ function EventInput({ isOpen, onClose, onAddEvent }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} size="3xl">
+    <Modal isCentered isOpen={isOpen} onClose={handleClose} size="3xl">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add Event</ModalHeader>
